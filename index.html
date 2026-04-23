@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#2d5a3d">
 <title>Mi Agenda</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,24 +15,19 @@
 :root{
   --ink:#1a1a1a;--ink2:#555;--ink3:#999;
   --surface:#ffffff;--surface2:#f5f3ef;--surface3:#ede9e0;
-  --accent:#2d5a3d;--accent2:#4a8c64;--accent-light:#e8f0eb;
-  --warn:#c0622a;--warn-light:#faeee5;
-  --info:#1e4d8c;--info-light:#e6edf7;
-  --danger:#a32d2d;--danger-light:#fcebeb;
+  --accent:#2d5a3d;--accent-light:#e8f0eb;
   --border:rgba(0,0,0,0.1);--border2:rgba(0,0,0,0.18);
+  --danger:#a32d2d;--danger-light:#fcebeb;
   --r:12px;--font-h:'DM Serif Display',serif;--font-b:'DM Sans',sans-serif;
 }
 @media(prefers-color-scheme:dark){:root{
   --ink:#f0ece4;--ink2:#b0a898;--ink3:#706860;
   --surface:#1c1b18;--surface2:#252420;--surface3:#2e2c27;
-  --accent:#6ab587;--accent2:#4a8c64;--accent-light:#1a2e22;
-  --warn:#e07a48;--warn-light:#2e1a0e;
-  --info:#5b8fd4;--info-light:#0e1d30;
-  --danger:#e24b4a;--danger-light:#2a0f0f;
+  --accent:#6ab587;--accent-light:#1a2e22;
   --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);
+  --danger:#e24b4a;--danger-light:#2a0f0f;
 }}
-
-html,body{height:100%;background:var(--surface2);color:var(--ink);font-family:var(--font-b);font-size:16px;overflow-x:hidden}
+html,body{height:100%;background:var(--surface2);color:var(--ink);font-family:var(--font-b);overflow-x:hidden}
 body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
 
 /* HEADER */
@@ -57,13 +51,13 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* TOAST */
-#toast{position:fixed;bottom:5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--surface);font-size:13px;padding:8px 18px;border-radius:20px;opacity:0;transition:all .3s;pointer-events:none;z-index:200;white-space:nowrap}
+#toast{position:fixed;bottom:5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--surface);font-size:13px;padding:8px 18px;border-radius:20px;opacity:0;transition:all .3s;pointer-events:none;z-index:300;white-space:nowrap}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /* STATS */
 .stat-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:1rem}
 .stat-card{background:var(--surface3);border-radius:10px;padding:.75rem;text-align:center}
-.stat-num{font-size:22px;font-weight:500;color:var(--ink)}
+.stat-num{font-size:22px;font-weight:500}
 .stat-lbl{font-size:11px;color:var(--ink3);margin-top:2px}
 
 /* PROGRESS */
@@ -73,28 +67,26 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
 .prog-fill{height:100%;background:var(--accent);border-radius:4px;transition:width .4s}
 
 /* PILLS */
-.pills{display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap}
-.pill{font-size:12px;padding:5px 12px;border-radius:20px;border:.5px solid var(--border);background:var(--surface);color:var(--ink2);cursor:pointer;font-family:var(--font-b);transition:all .12s}
-.pill.active{background:var(--accent);color:white;border-color:var(--accent)}
+.pills-wrap{display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap;align-items:center}
+.pill{font-size:12px;padding:5px 12px;border-radius:20px;border:.5px solid var(--border);background:var(--surface);color:var(--ink2);cursor:pointer;font-family:var(--font-b);transition:all .12s;white-space:nowrap}
+.pill.active{color:white;border-color:transparent}
 
 /* CARD */
 .card{background:var(--surface);border-radius:var(--r);border:.5px solid var(--border);padding:1rem 1.25rem;margin-bottom:.75rem}
 
-/* TASK ITEM */
+/* TASK */
 .task-item{display:flex;align-items:flex-start;gap:12px;padding:.7rem 0;border-bottom:.5px solid var(--border)}
 .task-item:last-child{border-bottom:none;padding-bottom:0}
-.task-check{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--border2);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;margin-top:1px;background:transparent}
-.task-check.done{background:var(--accent);border-color:var(--accent);color:white;font-size:12px}
+.task-check{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--border2);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;margin-top:1px;font-size:12px;color:white}
 .task-text{flex:1;min-width:0}
-.task-title{font-size:14px;font-weight:500;color:var(--ink);line-height:1.4;word-break:break-word}
+.task-title{font-size:14px;font-weight:500;line-height:1.4;word-break:break-word}
 .task-title.done{text-decoration:line-through;color:var(--ink3);font-weight:400}
 .task-meta{font-size:12px;color:var(--ink3);margin-top:3px;display:flex;align-items:center;gap:6px}
-.task-del{background:none;border:none;cursor:pointer;color:var(--ink3);font-size:16px;padding:0 4px;line-height:1;opacity:.5;transition:opacity .15s}
-.task-del:hover{opacity:1;color:var(--danger)}
-.tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500}
-.tag-trabajo{background:var(--info-light);color:var(--info)}
-.tag-personal{background:var(--accent-light);color:var(--accent)}
-.tag-sonantes{background:var(--warn-light);color:var(--warn)}
+.del-btn{background:none;border:none;cursor:pointer;color:var(--ink3);font-size:18px;padding:0 2px;line-height:1;opacity:.4;transition:opacity .15s;flex-shrink:0}
+.del-btn:hover{opacity:1;color:var(--danger)}
+
+/* TAG */
+.tag{display:inline-block;font-size:11px;padding:2px 9px;border-radius:20px;font-weight:500;color:white}
 
 /* EVENT */
 .ev-day-label{font-size:11px;font-weight:500;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;margin:1rem 0 .4rem}
@@ -102,30 +94,25 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
 .ev-item{display:flex;gap:12px;align-items:stretch;background:var(--surface);border-radius:var(--r);border:.5px solid var(--border);padding:.75rem 1rem;margin-bottom:.5rem}
 .ev-line{width:3px;border-radius:4px;flex-shrink:0}
 .ev-body{flex:1;min-width:0}
-.ev-title{font-size:14px;font-weight:500;color:var(--ink)}
+.ev-title{font-size:14px;font-weight:500}
 .ev-time{font-size:12px;color:var(--ink3);margin-top:2px}
-.ev-del{background:none;border:none;cursor:pointer;color:var(--ink3);font-size:16px;opacity:.4;transition:opacity .15s;align-self:center;padding:0 4px}
-.ev-del:hover{opacity:1;color:var(--danger)}
 
 /* NOTE */
 .note-card{background:var(--surface);border-radius:var(--r);border:.5px solid var(--border);padding:1rem 1.25rem;margin-bottom:.75rem;cursor:pointer;transition:border-color .15s}
 .note-card:hover{border-color:var(--border2)}
 .note-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-.note-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px}
+.note-title{font-size:14px;font-weight:500;margin-bottom:4px}
 .note-preview{font-size:13px;color:var(--ink2);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .note-date{font-size:11px;color:var(--ink3);margin-top:6px}
-.note-del{background:none;border:none;cursor:pointer;color:var(--ink3);font-size:16px;opacity:.4;flex-shrink:0;padding:0;transition:opacity .15s}
-.note-del:hover{opacity:1;color:var(--danger)}
 
 /* CONTACT */
 .contact-item{display:flex;align-items:center;gap:12px;padding:.7rem 0;border-bottom:.5px solid var(--border)}
 .contact-item:last-child{border-bottom:none}
-.contact-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;flex-shrink:0}
-.contact-info{flex:1;min-width:0}
-.contact-name{font-size:14px;font-weight:500;color:var(--ink)}
+.contact-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;flex-shrink:0;color:white}
+.contact-name{font-size:14px;font-weight:500}
 .contact-role{font-size:12px;color:var(--ink3)}
-.contact-del{background:none;border:none;cursor:pointer;color:var(--ink3);font-size:16px;opacity:.4;padding:0 4px;transition:opacity .15s}
-.contact-del:hover{opacity:1;color:var(--danger)}
+
+/* SEC HEADER */
 .sec-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
 .sec-title{font-family:var(--font-h);font-size:18px}
 .sec-count{font-size:12px;color:var(--ink3);background:var(--surface3);padding:3px 10px;border-radius:20px}
@@ -151,13 +138,25 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
 .btn-primary:active{opacity:.85}
 .btn-cancel{width:100%;padding:.75rem;background:transparent;color:var(--ink3);border:.5px solid var(--border2);border-radius:10px;font-family:var(--font-b);font-size:14px;cursor:pointer;margin-top:.6rem}
 
-/* NOTE DETAIL MODAL */
-#modal-note-detail .modal{background:var(--surface)}
+/* CATEGORÍAS MANAGER */
+.cat-list{margin-bottom:1rem}
+.cat-row{display:flex;align-items:center;gap:10px;padding:.6rem 0;border-bottom:.5px solid var(--border)}
+.cat-row:last-child{border-bottom:none}
+.cat-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+.cat-name{flex:1;font-size:14px;font-weight:500}
+.cat-base-badge{font-size:10px;color:var(--ink3);background:var(--surface3);padding:2px 7px;border-radius:10px}
+.cat-add-row{display:flex;gap:8px;align-items:center;margin-top:.5rem}
+.cat-add-row input{flex:1;background:var(--surface2);border:.5px solid var(--border2);border-radius:10px;padding:.6rem .85rem;font-family:var(--font-b);font-size:14px;color:var(--ink);outline:none}
+.cat-add-row input:focus{border-color:var(--accent)}
+.color-pick{width:38px;height:38px;border-radius:10px;border:.5px solid var(--border2);cursor:pointer;padding:3px;background:var(--surface2)}
+.btn-add-cat{padding:.6rem 1rem;background:var(--accent);color:white;border:none;border-radius:10px;font-family:var(--font-b);font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap}
+
+/* NOTE DETAIL */
 .note-detail-title{font-family:var(--font-h);font-size:22px;margin-bottom:.5rem;line-height:1.3}
 .note-detail-date{font-size:12px;color:var(--ink3);margin-bottom:1.25rem}
 .note-detail-body{font-size:15px;line-height:1.7;color:var(--ink2);white-space:pre-wrap;word-break:break-word}
 
-/* EMPTY STATE */
+/* EMPTY */
 .empty{text-align:center;padding:3rem 1rem;color:var(--ink3)}
 .empty-icon{font-size:36px;margin-bottom:.75rem}
 .empty-text{font-size:14px}
@@ -171,18 +170,10 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
     <div style="font-size:12px;color:var(--ink3)">hoy, <b id="hoy-label"></b></div>
   </div>
   <nav class="nav">
-    <button class="nav-btn active" data-sec="tareas" onclick="setSection('tareas',this)">
-      <span class="nav-icon">✓</span>Tareas
-    </button>
-    <button class="nav-btn" data-sec="eventos" onclick="setSection('eventos',this)">
-      <span class="nav-icon">◷</span>Eventos
-    </button>
-    <button class="nav-btn" data-sec="notas" onclick="setSection('notas',this)">
-      <span class="nav-icon">◻</span>Notas
-    </button>
-    <button class="nav-btn" data-sec="contactos" onclick="setSection('contactos',this)">
-      <span class="nav-icon">◎</span>Contactos
-    </button>
+    <button class="nav-btn active" onclick="setSection('tareas',this)"><span class="nav-icon">✓</span>Tareas</button>
+    <button class="nav-btn" onclick="setSection('eventos',this)"><span class="nav-icon">◷</span>Eventos</button>
+    <button class="nav-btn" onclick="setSection('notas',this)"><span class="nav-icon">◻</span>Notas</button>
+    <button class="nav-btn" onclick="setSection('contactos',this)"><span class="nav-icon">◎</span>Contactos</button>
   </nav>
 </div>
 
@@ -196,15 +187,10 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
       <div class="stat-card"><div class="stat-num" id="s-total">–</div><div class="stat-lbl">total</div></div>
     </div>
     <div class="prog-wrap">
-      <div class="prog-label"><span>Progreso de hoy</span><span id="s-pct">0%</span></div>
+      <div class="prog-label"><span>Progreso</span><span id="s-pct">0%</span></div>
       <div class="prog-bar"><div class="prog-fill" id="s-fill" style="width:0%"></div></div>
     </div>
-    <div class="pills">
-      <button class="pill active" onclick="filterTareas('todas',this)">Todas</button>
-      <button class="pill" onclick="filterTareas('trabajo',this)">Trabajo</button>
-      <button class="pill" onclick="filterTareas('personal',this)">Personal</button>
-      <button class="pill" onclick="filterTareas('sonantes',this)">Sonantes</button>
-    </div>
+    <div class="pills-wrap" id="pills-tareas"></div>
     <div id="lista-tareas"><div class="loader"><div class="spinner"></div>Cargando…</div></div>
   </div>
 
@@ -242,13 +228,7 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
     <div class="modal-title">Nueva tarea</div>
     <div class="field"><label>Tarea</label><input type="text" id="t-texto" placeholder="¿Qué tenés que hacer?"></div>
     <div class="modal-row">
-      <div class="field"><label>Categoría</label>
-        <select id="t-cat">
-          <option value="personal">Personal</option>
-          <option value="trabajo">Trabajo</option>
-          <option value="sonantes">Sonantes</option>
-        </select>
-      </div>
+      <div class="field"><label>Categoría</label><select id="t-cat"></select></div>
       <div class="field"><label>Vence</label><input type="date" id="t-fecha"></div>
     </div>
     <button class="btn-primary" id="btn-guardar-tarea">Guardar tarea</button>
@@ -263,13 +243,7 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
     <div class="field"><label>Título</label><input type="text" id="e-titulo" placeholder="Nombre del evento"></div>
     <div class="modal-row">
       <div class="field"><label>Fecha</label><input type="date" id="e-fecha"></div>
-      <div class="field"><label>Categoría</label>
-        <select id="e-cat">
-          <option value="personal">Personal</option>
-          <option value="trabajo">Trabajo</option>
-          <option value="sonantes">Sonantes</option>
-        </select>
-      </div>
+      <div class="field"><label>Categoría</label><select id="e-cat"></select></div>
     </div>
     <div class="modal-row">
       <div class="field"><label>Hora inicio</label><input type="time" id="e-hora-ini"></div>
@@ -297,7 +271,10 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
   <div class="modal">
     <div class="modal-title">Nuevo contacto</div>
     <div class="field"><label>Nombre</label><input type="text" id="c-nombre" placeholder="Nombre completo"></div>
-    <div class="field"><label>Rol / Empresa</label><input type="text" id="c-rol" placeholder="Ej: Docente violín – Sonantes"></div>
+    <div class="modal-row">
+      <div class="field"><label>Categoría</label><select id="c-cat"></select></div>
+      <div class="field"><label>Rol / Empresa</label><input type="text" id="c-rol" placeholder="Ej: Docente violín"></div>
+    </div>
     <div class="modal-row">
       <div class="field"><label>Teléfono</label><input type="tel" id="c-tel" placeholder="+598…"></div>
       <div class="field"><label>Email</label><input type="email" id="c-email" placeholder="correo@…"></div>
@@ -305,6 +282,21 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
     <div class="field"><label>Notas</label><textarea id="c-notas" placeholder="Info adicional…"></textarea></div>
     <button class="btn-primary" id="btn-guardar-contacto">Guardar contacto</button>
     <button class="btn-cancel" onclick="closeModal('modal-contacto')">Cancelar</button>
+  </div>
+</div>
+
+<!-- MODAL CATEGORÍAS -->
+<div class="modal-bg" id="modal-cats">
+  <div class="modal">
+    <div class="modal-title">Categorías</div>
+    <div class="cat-list" id="cat-list"></div>
+    <div style="font-size:12px;color:var(--ink3);margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.4px;font-weight:500">Agregar categoría</div>
+    <div class="cat-add-row">
+      <input type="text" id="cat-nuevo-nombre" placeholder="Nombre…" maxlength="30">
+      <input type="color" id="cat-nuevo-color" class="color-pick" value="#7c3aed" title="Elegí un color">
+      <button class="btn-add-cat" id="btn-add-cat">Agregar</button>
+    </div>
+    <button class="btn-cancel" style="margin-top:1.25rem" onclick="closeModal('modal-cats')">Cerrar</button>
   </div>
 </div>
 
@@ -319,56 +311,73 @@ body{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
 </div>
 
 <script>
-// ── CONFIG ──────────────────────────────────────────────────────────────────
-const SB_URL  = 'https://bpbqvacuapllnzbyndog.supabase.co';
-const SB_KEY  = 'sb_publishable_F16YxpB4NV8BlC4sIFK2aw_b4CY0Qbq';
+const SB_URL = 'https://bpbqvacuapllnzbyndog.supabase.co';
+const SB_KEY = 'sb_publishable_F16YxpB4NV8BlC4sIFK2aw_b4CY0Qbq';
 const { createClient } = supabase;
 const sb = createClient(SB_URL, SB_KEY);
 
-// ── ESTADO ──────────────────────────────────────────────────────────────────
-let currentSection = 'tareas';
-let filtroTareas   = 'todas';
 const DAYS   = ['dom','lun','mar','mié','jue','vie','sáb'];
 const MONTHS = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 const MONTH_LONG = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const CATS_BASE = ['trabajo','personal','sonantes'];
 
-// ── HELPERS ─────────────────────────────────────────────────────────────────
+let currentSection = 'tareas';
+let filtroTareas   = 'todas';
+let CATS = []; // se carga de Supabase
+
+// ── HELPERS ──────────────────────────────────────────────────────────────────
 function toast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
 }
-function openModal(id) {
-  document.getElementById(id).classList.add('open');
-}
-function closeModal(id) {
-  document.getElementById(id).classList.remove('open');
-}
-function fmtFecha(isoStr) {
-  if (!isoStr) return '';
-  const d = new Date(isoStr + 'T12:00:00');
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+function fmtFecha(iso) {
+  if (!iso) return '';
+  const d = new Date(iso.slice(0,10) + 'T12:00:00');
   return d.getDate() + ' ' + MONTHS[d.getMonth()];
 }
-function fmtFechaLarga(isoStr) {
-  if (!isoStr) return '';
-  const d = new Date(isoStr + 'T12:00:00');
+function fmtFechaLarga(iso) {
+  if (!iso) return '';
+  const d = new Date(iso.slice(0,10) + 'T12:00:00');
   return DAYS[d.getDay()] + ' ' + d.getDate() + ' ' + MONTH_LONG[d.getMonth()];
 }
 function initials(name) {
-  return name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+  return name.split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase();
 }
-const AV_COLORS = [
-  ['#e8f0eb','#2d5a3d'],['#e6edf7','#1e4d8c'],['#faeee5','#c0622a'],
-  ['#f5f3ef','#555'],['#fcebeb','#a32d2d']
-];
-function avColor(i) { return AV_COLORS[i % AV_COLORS.length]; }
-const EV_COLORS = { trabajo:'#1e4d8c', personal:'#2d5a3d', sonantes:'#c0622a' };
+function catColor(nombre) {
+  const c = CATS.find(x => x.nombre.toLowerCase() === nombre.toLowerCase());
+  return c ? c.color : '#888';
+}
+function hexToRgb(hex) {
+  const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return r ? [parseInt(r[1],16), parseInt(r[2],16), parseInt(r[3],16)] : [128,128,128];
+}
+function tagStyle(color) {
+  const [r,g,b] = hexToRgb(color);
+  const bg = `rgba(${r},${g},${b},0.15)`;
+  return `background:${bg};color:${color}`;
+}
+function darken(hex, pct=0.6) {
+  const [r,g,b] = hexToRgb(hex);
+  return `rgb(${Math.round(r*pct)},${Math.round(g*pct)},${Math.round(b*pct)})`;
+}
 
-// ── NAV ──────────────────────────────────────────────────────────────────────
+// ── FECHA HOY ─────────────────────────────────────────────────────────────────
+(function(){
+  const n = new Date();
+  document.getElementById('hoy-label').textContent = DAYS[n.getDay()] + ' ' + n.getDate() + ' ' + MONTHS[n.getMonth()];
+  const iso = n.toISOString().slice(0,10);
+  ['t-fecha','e-fecha'].forEach(id => { const el=document.getElementById(id); if(el) el.value=iso; });
+})();
+
+// ── NAV ───────────────────────────────────────────────────────────────────────
 function setSection(name, btn) {
   currentSection = name;
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('sec-'+name).classList.add('active');
   btn.classList.add('active');
 }
@@ -378,38 +387,95 @@ document.getElementById('fab').addEventListener('click', () => {
   const map = {tareas:'modal-tarea',eventos:'modal-evento',notas:'modal-nota',contactos:'modal-contacto'};
   openModal(map[currentSection]);
 });
-// close on bg click
 document.querySelectorAll('.modal-bg').forEach(bg => {
   bg.addEventListener('click', e => { if(e.target===bg) bg.classList.remove('open'); });
 });
 
-// ── FECHA HOY ────────────────────────────────────────────────────────────────
-(function(){
-  const now = new Date();
-  document.getElementById('hoy-label').textContent =
-    DAYS[now.getDay()] + ' ' + now.getDate() + ' ' + MONTHS[now.getMonth()];
-  // default date fields
-  const iso = now.toISOString().slice(0,10);
-  ['t-fecha','e-fecha'].forEach(id => { const el=document.getElementById(id); if(el) el.value=iso; });
-})();
+// ══════════════════════════════════════════════════════════════════════════════
+// CATEGORÍAS
+// ══════════════════════════════════════════════════════════════════════════════
+async function loadCats() {
+  const { data } = await sb.from('categorias').select('*').order('created_at');
+  CATS = data || [];
+  renderCatSelects();
+  renderPillsTareas();
+  renderCatList();
+}
+
+function renderCatSelects() {
+  const opts = CATS.map(c => `<option value="${c.nombre}">${c.nombre}</option>`).join('');
+  ['t-cat','e-cat','c-cat'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = opts;
+  });
+}
+
+function renderPillsTareas() {
+  const wrap = document.getElementById('pills-tareas');
+  const all = `<button class="pill ${filtroTareas==='todas'?'active':''}" style="${filtroTareas==='todas'?'background:var(--accent)':''}" onclick="filterTareas('todas',this)">Todas</button>`;
+  const cats = CATS.map(c => {
+    const active = filtroTareas === c.nombre;
+    return `<button class="pill ${active?'active':''}" style="${active?'background:'+c.color+';border-color:'+c.color:''}" onclick="filterTareas('${c.nombre}',this)">${c.nombre}</button>`;
+  }).join('');
+  // botón de gestionar categorías
+  const gearBtn = `<button class="pill" onclick="openModal('modal-cats')" style="margin-left:auto" title="Gestionar categorías">⚙ Categorías</button>`;
+  wrap.innerHTML = all + cats + gearBtn;
+}
+
+function renderCatList() {
+  const list = document.getElementById('cat-list');
+  if (!list) return;
+  list.innerHTML = CATS.map(c => {
+    const esBase = CATS_BASE.includes(c.nombre.toLowerCase());
+    return `<div class="cat-row">
+      <div class="cat-dot" style="background:${c.color}"></div>
+      <div class="cat-name">${c.nombre}</div>
+      ${esBase ? '<span class="cat-base-badge">base</span>' : `<button class="del-btn" onclick="deleteCat('${c.id}','${c.nombre}')" title="Eliminar">×</button>`}
+    </div>`;
+  }).join('');
+}
+
+document.getElementById('btn-add-cat').addEventListener('click', async () => {
+  const nombre = document.getElementById('cat-nuevo-nombre').value.trim();
+  const color  = document.getElementById('cat-nuevo-color').value;
+  if (!nombre) { toast('Escribí un nombre para la categoría'); return; }
+  if (CATS.find(c => c.nombre.toLowerCase() === nombre.toLowerCase())) {
+    toast('Ya existe esa categoría'); return;
+  }
+  const { error } = await sb.from('categorias').insert({ nombre, color });
+  if (error) { toast('Error al guardar'); return; }
+  document.getElementById('cat-nuevo-nombre').value = '';
+  toast('Categoría agregada ✓');
+  await loadCats();
+  if (window._tareasData) renderTareas(window._tareasData);
+});
+
+async function deleteCat(id, nombre) {
+  const { error } = await sb.from('categorias').delete().eq('id', id);
+  if (error) { toast('Error al eliminar'); return; }
+  toast('Categoría eliminada');
+  await loadCats();
+  if (window._tareasData) renderTareas(window._tareasData);
+}
 
 // ══════════════════════════════════════════════════════════════════════════════
 // TAREAS
 // ══════════════════════════════════════════════════════════════════════════════
 async function loadTareas() {
-  const { data, error } = await sb.from('tareas').select('*').order('created_at', {ascending:false});
+  const { data, error } = await sb.from('tareas').select('*').order('created_at',{ascending:false});
   if (error) { toast('Error cargando tareas'); return; }
-  renderTareas(data || []);
+  window._tareasData = data || [];
+  renderTareas(window._tareasData);
 }
+
 function renderTareas(data) {
-  const all = data;
-  const filtered = filtroTareas === 'todas' ? all : all.filter(t => t.categoria === filtroTareas);
-  const done  = all.filter(t => t.done).length;
-  const pend  = all.length - done;
-  const pct   = all.length ? Math.round(done/all.length*100) : 0;
+  const filtered = filtroTareas === 'todas' ? data : data.filter(t => t.categoria === filtroTareas);
+  const done  = data.filter(t => t.done).length;
+  const pend  = data.length - done;
+  const pct   = data.length ? Math.round(done/data.length*100) : 0;
   document.getElementById('s-pend').textContent  = pend;
   document.getElementById('s-done').textContent  = done;
-  document.getElementById('s-total').textContent = all.length;
+  document.getElementById('s-total').textContent = data.length;
   document.getElementById('s-pct').textContent   = pct + '%';
   document.getElementById('s-fill').style.width  = pct + '%';
 
@@ -420,41 +486,34 @@ function renderTareas(data) {
   }
   document.getElementById('lista-tareas').innerHTML =
     '<div class="card">' +
-    filtered.map(t => `
-      <div class="task-item">
-        <div class="task-check ${t.done?'done':''}" onclick="toggleTarea('${t.id}',${t.done})" title="${t.done?'Marcar pendiente':'Marcar hecha'}">
-          ${t.done ? '✓' : ''}
-        </div>
+    filtered.map(t => {
+      const color = catColor(t.categoria);
+      return `<div class="task-item">
+        <div class="task-check" style="${t.done?'background:'+color+';border-color:'+color:''}" onclick="toggleTarea('${t.id}',${t.done})">${t.done?'✓':''}</div>
         <div class="task-text">
           <div class="task-title ${t.done?'done':''}">${t.texto}</div>
           <div class="task-meta">
-            <span class="tag tag-${t.categoria}">${t.categoria}</span>
+            <span class="tag" style="${tagStyle(color)}">${t.categoria}</span>
             ${t.fecha_venc ? '<span>vence '+fmtFecha(t.fecha_venc)+'</span>' : ''}
           </div>
         </div>
-        <button class="task-del" onclick="deleteTarea('${t.id}')" title="Eliminar">×</button>
-      </div>`).join('') +
-    '</div>';
-  // store data for filter
-  window._tareasData = data;
+        <button class="del-btn" onclick="deleteTarea('${t.id}')">×</button>
+      </div>`;
+    }).join('') + '</div>';
 }
 
 function filterTareas(cat, btn) {
   filtroTareas = cat;
-  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
-  btn.classList.add('active');
+  renderPillsTareas();
   if (window._tareasData) renderTareas(window._tareasData);
 }
 
-async function toggleTarea(id, currentDone) {
-  const { error } = await sb.from('tareas').update({ done: !currentDone }).eq('id', id);
-  if (error) { toast('Error al actualizar'); return; }
+async function toggleTarea(id, done) {
+  await sb.from('tareas').update({ done: !done }).eq('id', id);
   await loadTareas();
 }
-
 async function deleteTarea(id) {
-  const { error } = await sb.from('tareas').delete().eq('id', id);
-  if (error) { toast('Error al eliminar'); return; }
+  await sb.from('tareas').delete().eq('id', id);
   toast('Tarea eliminada');
   await loadTareas();
 }
@@ -480,36 +539,37 @@ document.getElementById('btn-guardar-tarea').addEventListener('click', async () 
 // ══════════════════════════════════════════════════════════════════════════════
 async function loadEventos() {
   const hoy = new Date().toISOString().slice(0,10);
-  const { data, error } = await sb.from('eventos').select('*')
-    .gte('fecha', hoy).order('fecha').order('hora_inicio');
+  const { data, error } = await sb.from('eventos').select('*').gte('fecha',hoy).order('fecha').order('hora_inicio');
   if (error) { toast('Error cargando eventos'); return; }
   renderEventos(data || []);
 }
+
 function renderEventos(data) {
   if (!data.length) {
     document.getElementById('lista-eventos').innerHTML =
       '<div class="empty"><div class="empty-icon">◷</div><div class="empty-text">Sin eventos próximos</div></div>';
     return;
   }
-  // group by fecha
   const groups = {};
+  const todayIso = new Date().toISOString().slice(0,10);
   data.forEach(e => {
-    const lbl = e.fecha === new Date().toISOString().slice(0,10) ? 'Hoy' : fmtFechaLarga(e.fecha);
+    const lbl = e.fecha === todayIso ? 'Hoy' : fmtFechaLarga(e.fecha);
     if (!groups[lbl]) groups[lbl] = [];
     groups[lbl].push(e);
   });
   document.getElementById('lista-eventos').innerHTML = Object.entries(groups).map(([lbl, evs]) =>
     `<div class="ev-day-label">${lbl}</div>` +
     evs.map(e => {
-      const hora = e.todo_el_dia ? 'todo el día' : (e.hora_inicio || '') + (e.hora_fin ? ' – '+e.hora_fin : '');
+      const color = catColor(e.categoria);
+      const hora  = e.todo_el_dia ? 'todo el día' : (e.hora_inicio||'') + (e.hora_fin?' – '+e.hora_fin:'');
       return `<div class="ev-item">
-        <div class="ev-line" style="background:${EV_COLORS[e.categoria]||'#888'}"></div>
+        <div class="ev-line" style="background:${color}"></div>
         <div class="ev-body">
           <div class="ev-title">${e.titulo}</div>
-          ${hora ? `<div class="ev-time">${hora}</div>` : ''}
-          ${e.notas ? `<div class="ev-time" style="margin-top:3px">${e.notas}</div>` : ''}
+          ${hora?`<div class="ev-time">${hora}</div>`:''}
+          ${e.notas?`<div class="ev-time" style="margin-top:3px">${e.notas}</div>`:''}
         </div>
-        <button class="ev-del" onclick="deleteEvento('${e.id}')" title="Eliminar">×</button>
+        <button class="del-btn" onclick="deleteEvento('${e.id}')">×</button>
       </div>`;
     }).join('')
   ).join('');
@@ -525,20 +585,15 @@ document.getElementById('btn-guardar-evento').addEventListener('click', async ()
   const titulo = document.getElementById('e-titulo').value.trim();
   const fecha  = document.getElementById('e-fecha').value;
   if (!titulo || !fecha) { toast('Título y fecha son obligatorios'); return; }
-  const { error } = await sb.from('eventos').insert({
-    titulo,
-    fecha,
-    categoria: document.getElementById('e-cat').value,
+  await sb.from('eventos').insert({
+    titulo, fecha,
+    categoria:   document.getElementById('e-cat').value,
     hora_inicio: document.getElementById('e-hora-ini').value || null,
     hora_fin:    document.getElementById('e-hora-fin').value || null,
     notas:       document.getElementById('e-notas').value.trim() || null,
     todo_el_dia: !document.getElementById('e-hora-ini').value
   });
-  if (error) { toast('Error al guardar'); return; }
-  document.getElementById('e-titulo').value = '';
-  document.getElementById('e-notas').value  = '';
-  document.getElementById('e-hora-ini').value = '';
-  document.getElementById('e-hora-fin').value = '';
+  ['e-titulo','e-notas','e-hora-ini','e-hora-fin'].forEach(id => document.getElementById(id).value='');
   closeModal('modal-evento');
   toast('Evento guardado ✓');
   await loadEventos();
@@ -548,10 +603,11 @@ document.getElementById('btn-guardar-evento').addEventListener('click', async ()
 // NOTAS
 // ══════════════════════════════════════════════════════════════════════════════
 async function loadNotas() {
-  const { data, error } = await sb.from('notas').select('*').order('updated_at', {ascending:false});
+  const { data, error } = await sb.from('notas').select('*').order('updated_at',{ascending:false});
   if (error) { toast('Error cargando notas'); return; }
   renderNotas(data || []);
 }
+
 function renderNotas(data) {
   document.getElementById('cnt-notas').textContent = data.length + ' nota' + (data.length!==1?'s':'');
   if (!data.length) {
@@ -563,16 +619,16 @@ function renderNotas(data) {
     <div class="note-card" onclick="openNota(${JSON.stringify(n).replace(/"/g,'&quot;')})">
       <div class="note-head">
         <div class="note-title">${n.titulo}</div>
-        <button class="note-del" onclick="event.stopPropagation();deleteNota('${n.id}')" title="Eliminar">×</button>
+        <button class="del-btn" onclick="event.stopPropagation();deleteNota('${n.id}')">×</button>
       </div>
       <div class="note-preview">${n.contenido}</div>
-      <div class="note-date">${fmtFecha(n.updated_at.slice(0,10))}</div>
+      <div class="note-date">${fmtFecha(n.updated_at)}</div>
     </div>`).join('');
 }
 
 function openNota(n) {
   document.getElementById('nd-titulo').textContent = n.titulo;
-  document.getElementById('nd-fecha').textContent  = 'Última edición: ' + fmtFechaLarga(n.updated_at.slice(0,10));
+  document.getElementById('nd-fecha').textContent  = 'Última edición: ' + fmtFechaLarga(n.updated_at);
   document.getElementById('nd-cuerpo').textContent = n.contenido;
   openModal('modal-note-detail');
 }
@@ -587,10 +643,8 @@ document.getElementById('btn-guardar-nota').addEventListener('click', async () =
   const titulo    = document.getElementById('n-titulo').value.trim();
   const contenido = document.getElementById('n-contenido').value.trim();
   if (!titulo) { toast('Escribí un título'); return; }
-  const { error } = await sb.from('notas').insert({ titulo, contenido });
-  if (error) { toast('Error al guardar'); return; }
-  document.getElementById('n-titulo').value    = '';
-  document.getElementById('n-contenido').value = '';
+  await sb.from('notas').insert({ titulo, contenido });
+  ['n-titulo','n-contenido'].forEach(id => document.getElementById(id).value='');
   closeModal('modal-nota');
   toast('Nota guardada ✓');
   await loadNotas();
@@ -604,6 +658,7 @@ async function loadContactos() {
   if (error) { toast('Error cargando contactos'); return; }
   renderContactos(data || []);
 }
+
 function renderContactos(data) {
   document.getElementById('cnt-contactos').textContent = data.length + ' contacto' + (data.length!==1?'s':'');
   if (!data.length) {
@@ -611,16 +666,16 @@ function renderContactos(data) {
       '<div class="empty"><div class="empty-icon">◎</div><div class="empty-text">Sin contactos aún</div></div>';
     return;
   }
-  document.getElementById('lista-contactos').innerHTML = data.map((c,i) => {
-    const [bg,fg] = avColor(i);
+  document.getElementById('lista-contactos').innerHTML = data.map(c => {
+    const color = catColor(c.categoria || 'personal');
     return `<div class="contact-item">
-      <div class="contact-av" style="background:${bg};color:${fg}">${initials(c.nombre)}</div>
-      <div class="contact-info">
+      <div class="contact-av" style="background:${color}">${initials(c.nombre)}</div>
+      <div class="contact-info" style="flex:1;min-width:0">
         <div class="contact-name">${c.nombre}</div>
-        ${c.rol ? `<div class="contact-role">${c.rol}</div>` : ''}
-        ${c.telefono ? `<div class="contact-role">${c.telefono}</div>` : ''}
+        ${c.rol?`<div class="contact-role">${c.rol}</div>`:''}
+        ${c.telefono?`<div class="contact-role">${c.telefono}</div>`:''}
       </div>
-      <button class="contact-del" onclick="deleteContacto('${c.id}')" title="Eliminar">×</button>
+      <button class="del-btn" onclick="deleteContacto('${c.id}')">×</button>
     </div>`;
   }).join('');
 }
@@ -634,25 +689,26 @@ async function deleteContacto(id) {
 document.getElementById('btn-guardar-contacto').addEventListener('click', async () => {
   const nombre = document.getElementById('c-nombre').value.trim();
   if (!nombre) { toast('Escribí el nombre'); return; }
-  const { error } = await sb.from('contactos').insert({
+  await sb.from('contactos').insert({
     nombre,
+    categoria: document.getElementById('c-cat').value,
     rol:      document.getElementById('c-rol').value.trim()   || null,
     telefono: document.getElementById('c-tel').value.trim()   || null,
     email:    document.getElementById('c-email').value.trim() || null,
     notas:    document.getElementById('c-notas').value.trim() || null
   });
-  if (error) { toast('Error al guardar'); return; }
   ['c-nombre','c-rol','c-tel','c-email','c-notas'].forEach(id => document.getElementById(id).value='');
   closeModal('modal-contacto');
   toast('Contacto guardado ✓');
   await loadContactos();
 });
 
-// ── INIT ─────────────────────────────────────────────────────────────────────
-loadTareas();
-loadEventos();
-loadNotas();
-loadContactos();
+// ── INIT ──────────────────────────────────────────────────────────────────────
+async function init() {
+  await loadCats();
+  await Promise.all([loadTareas(), loadEventos(), loadNotas(), loadContactos()]);
+}
+init();
 </script>
 </body>
 </html>
